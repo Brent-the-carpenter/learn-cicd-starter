@@ -46,7 +46,7 @@ func TestGetApiKey(t *testing.T) {
 			result, err := GetAPIKey(tc.input)
 
 			// Check if the result matches the expected value
-			if result == tc.expected {
+			if result != tc.expected {
 				t.Errorf("expected result: %s, got: %s", tc.expected, result)
 			}
 
