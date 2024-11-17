@@ -15,7 +15,20 @@ jobs:
             
             - name: Install Go
               uses: actions/setup-go@v5
+              with:
+                go-version: '1.23.3'
               
             - name: Build production binary
               run: scripts/buildprod.sh
+            
+            - name: Authenticate with Google Cloud
+              uses: google-github-actions/auth@v2
+              with:
+                credentials_json: ${{secrets.GCP_CREDENTIALS}}
+            
+            - name: Set up Cloud SDK
+              uses: google-github-actions/setup-gcloud@v2
+            
+            - name: Deploy to Artifact Registry
+              run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-442018/notely-ar-repo/notely:latest .
             
